@@ -1,0 +1,74 @@
+<!Doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <title>Train Scheduler</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+</head>
+<body>
+
+  <nav class="red darken-2" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">Train Scheduler</a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+          <table class="highlight">
+            <thead>
+              <tr>
+                <th>Train Name</th>
+                <th>Destination</th>
+                <th>Frequency (min)</th>
+                <th>Next Arrival</th>
+                <th>Minutes Away</th>
+              </tr>
+            </thead>
+
+            <tbody id="trainSchedule">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="train-name" type="text">
+              <label for="train-name">Train Name</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="destination" type="text">
+              <label for="destination">Destination</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input id="first-train-time" type="text">
+              <label for="first-train-time">First Train Time (HH:MM - military time)</label>
+            </div>
+            <div class="input-field col s12 m6">
+              <input id="frequency" type="number" class="validate">
+              <label for="frequency">Frequency (min)</label>
+            </div>
+            <button class="btn waves-effect waves-green red darken-2" type="submit" name="action" id="submit-btn">Submit
+            <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="assets/javascript/code.js"></script>
+</html>
