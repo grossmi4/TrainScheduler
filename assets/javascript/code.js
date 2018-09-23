@@ -39,19 +39,35 @@ trainRef.on('value', function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     const childKey = childSnapshot.key;
     const childData = childSnapshot.val();
-    createRow(childKey, childData.trainName,childData.destination, childData.frequency);
+    createRow(childKey, childData.trainName,childData.destination, childData.frequency, childData.firstTrainTime);
   })
 });
 
+const nextTrainTime = function(firstTime, frequency) {
+  const startTime = moment(firstTime, "HH:mm");
+  const now = moment();
+  if(now.isBefore(startTime)) {
+    return startTime;
+  }
+  else {
+    let nextStep = startTime;
+    while (nextStep.isBefore(now)){
+      nextStep.add(frequency, 'm')
+    }
+    return nextStep
+  }
+};
+
 //function to create a table row
-const createRow = function(key, trainName, destination, frequency) {
-  const nextArrival = '12:00'; //need to add moment.js calculation
-  const minutesAway = '30'; //need to add moment.js calculation
+const createRow = function(key, trainName, destination, frequency, firstTrainTime) {
+  const nextArrival = nextTrainTime(firstTrainTime, frequency);
+  const minutesAway = nextArrival.fromNow();
   const newRow = $(`<tr id=key>
+  
 <th>${trainName}</th>
 <th>${destination}</th>
 <th>${frequency}</th>
-<th>${nextArrival}</th>
+<th>${nextArrival.format("h:mm A")}</th>
 <th>${minutesAway}</th>`);
 
   $("#trainSchedule").append(newRow)
