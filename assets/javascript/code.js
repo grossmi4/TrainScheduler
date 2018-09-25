@@ -21,8 +21,6 @@ $("#submit-btn").on("click",function(event){
   event.preventDefault();
   console.log('submitting...');
   //set local variables to input values for validation
-
-
   const trainName = $("#train-name").val().trim();
   const destination = $("#destination").val().trim();
   const firstTrainTime = $("#first-train-time").val().trim();
@@ -40,8 +38,10 @@ $("#submit-btn").on("click",function(event){
   }
   else {
     database.ref(`Trains/${currentKey}`).set(postData)
+    isEdit = false
   }
-  // $(".input-field").reset();
+  $('.input-field input').val('');
+  M.updateTextFields();
 });
 
 const WriteSchedule = function(snapshot) {
@@ -74,7 +74,8 @@ const editRecord = function(event) {
 };
 
 const deleteRecord = function(event) {
-  console.log(event.target.dataset.id)
+  currentKey = event.target.dataset.id;
+  database.ref('Trains/'+currentKey).remove();
 };
 
 
