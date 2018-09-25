@@ -19,7 +19,6 @@ let currentKey = "";
 //set listener on submit to validate form and write to firebase
 $("#submit-btn").on("click",function(event){
   event.preventDefault();
-  console.log('submitting...');
   //set local variables to input values for validation
   const trainName = $("#train-name").val().trim();
   const destination = $("#destination").val().trim();
@@ -33,8 +32,9 @@ $("#submit-btn").on("click",function(event){
     firstTrainTime,
     frequency
   };
-  if(isEdit = false) {
+  if(isEdit === false) {
     trainRef.push(postData);
+    $("#submit-btn").html(`Submit<i class="material-icons right">send</i>`);
   }
   else {
     database.ref(`Trains/${currentKey}`).set(postData)
@@ -61,9 +61,7 @@ setInterval(function(){trainRef.once('value', WriteSchedule)}, 60000);
 const editRecord = function(event) {
   isEdit = true;
   currentKey = event.target.dataset.id;
-  console.log(currentKey);
   database.ref('Trains/'+currentKey).once('value',function(snapshot) {
-    console.log(snapshot.val());
     $("#train-name").val(snapshot.val().trainName);
     $("#destination").val(snapshot.val().destination);
     $("#first-train-time").val(snapshot.val().firstTrainTime);
